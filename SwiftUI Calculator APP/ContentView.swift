@@ -17,21 +17,34 @@ struct ContentView: View {
     ]
     
     var body: some View {
-        VStack{
-            
-            ForEach(buttons, id: \.self){row in
+        
+        ZStack(alignment: .bottom){
+            Color.black.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            VStack(spacing: 12){
+                
                 HStack{
-                    ForEach(row, id: \.self){button in
-                        Text(button)
-                            .font(.system(size: 32))
-                            .frame(width:80, height:80)
+                    Spacer()
+                    Text("42").foregroundColor(.white)
+                        .font(.system(size:64))
+                }.padding()
+              
+                ForEach(buttons, id: \.self){row in
+                    HStack{
+                        ForEach(row, id: \.self){button in
+                            Text(button)
+                                .font(.system(size: 32))
+                                .frame(width:80, height:80)
+                                .foregroundColor(.white)
+                                .background(Color.yellow)
+                                .cornerRadius(40)
+                                
+                        }
                     }
                 }
-            }
-            
-            
-            
+            }.padding(.bottom)
         }
+        
+       
     }
 }
 
