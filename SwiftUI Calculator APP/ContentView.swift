@@ -18,6 +18,7 @@ struct ContentView: View {
     
     var body: some View {
         
+        // Zstack: Tip to color backgroudn of the app
         ZStack(alignment: .bottom){
             Color.black.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             VStack(spacing: 12){
@@ -28,6 +29,8 @@ struct ContentView: View {
                         .font(.system(size:64))
                 }.padding()
               
+                
+                // Looping through 2 dimensional array
                 ForEach(buttons, id: \.self){row in
                     HStack (spacing: 12){
                         ForEach(row, id: \.self){button in
