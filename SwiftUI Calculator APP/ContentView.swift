@@ -46,6 +46,8 @@ struct ContentView: View {
                         .font(.system(size:64))
                 }.padding()
               
+                
+                // Looping through 2 dimensional array
                 ForEach(buttons, id: \.self){row in
                     HStack (spacing: 12){
                         ForEach(row, id: \.self){button in
