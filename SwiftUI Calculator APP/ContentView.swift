@@ -11,6 +11,7 @@ enum CalculatorButton: String{
     
     case zero, one, two, three, four, five, six, seven, eight, nine
     case equals, plus, minus, multiply, divide
+    case decimal
     case ac, plusMinus, percent
     
     var title: String {
@@ -32,6 +33,7 @@ enum CalculatorButton: String{
         case .percent: return "%"
         case .plusMinus: return "+/-"
         case .equals: return "="
+        case .decimal: return "."
         default:
             return "AC"
         }
@@ -56,7 +58,7 @@ struct ContentView: View {
         [.seven, .eight, .nine, .multiply],
         [.four, .five, .six, .minus],
         [.one, .two, .three, .plus],
-        [.zero, .zero, .zero, .equals]
+        [.zero, .decimal, .equals]
     ]
     
     
@@ -92,10 +94,11 @@ struct ContentView: View {
                             }) {
                                 Text(button.title)
                                     .font(.system(size: 32))
-                                    .frame(width: self.buttonWidth(), height: self.buttonWidth())
+                                    .frame(width: self.buttonWidth(button: button), height: (UIScreen.main.bounds.width - 5 * 12) / 4
+)
                                     .foregroundColor(.white)
                                     .background(button.backgroundColor)
-                                    .cornerRadius(self.buttonWidth())
+                                    .cornerRadius(self.buttonWidth(button: button))
                             }
                             
                             
@@ -106,7 +109,10 @@ struct ContentView: View {
         }
     }
     
-    func buttonWidth() -> CGFloat {
+    func buttonWidth(button: CalculatorButton) -> CGFloat {
+        if button == .zero {
+            return (UIScreen.main.bounds.width - 5 * 12) / 4 * 2
+        }
         return (UIScreen.main.bounds.width - 5 * 12) / 4
     }
 }
