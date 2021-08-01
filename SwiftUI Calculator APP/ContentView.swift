@@ -41,7 +41,7 @@ enum CalculatorButton: String{
     
     var backgroundColor: Color{
         switch self {
-        case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
+        case .zero, .decimal, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
             return Color(.darkGray)
         case .ac, .plusMinus, .percent:
             return Color(.lightGray)
@@ -51,7 +51,17 @@ enum CalculatorButton: String{
     }
 }
 
+// Einvorment object
+// This is global aplication state
+
+class GlobalEinvorment: ObservableObject {
+    @Published var display = "45"
+}
+
+
 struct ContentView: View {
+    
+    @EnvironmentObject var env: GlobalEinvorment
     
     let buttons: [[CalculatorButton]] = [
         [.ac, .plusMinus, .percent, .divide],
@@ -79,7 +89,7 @@ struct ContentView: View {
                 
                 HStack{
                     Spacer()
-                    Text("42").foregroundColor(.white)
+                    Text(env.display).foregroundColor(.white)
                         .font(.system(size:64))
                 }.padding()
               
@@ -90,6 +100,9 @@ struct ContentView: View {
                         ForEach(row, id: \.self){button in
                             
                             Button(action: {
+                                
+                                // Action to create maths
+                                self.env.display = button.title
                                 
                             }) {
                                 Text(button.title)
@@ -120,6 +133,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(GlobalEinvorment())
     }
 }
